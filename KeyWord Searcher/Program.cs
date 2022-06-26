@@ -16,7 +16,7 @@ namespace KeyWord_Searcher
             Console.Title = "Keyword Searcher";
 
             start:
-            string path, tmp, kw, key, keyC;
+            string path, pathS = "", tmp, kw, key, keyC, keyP, fileS = "";
             string[] dir, pathFile;
             int num;
             int match = 0;
@@ -33,7 +33,15 @@ namespace KeyWord_Searcher
 
             do
             {
-                Console.Write("How many directories do you want to search in: ");
+                if (key == "d")
+                {
+                    Console.Write("How many directories do you want to search in: ");
+                }
+                else
+                {
+                    Console.Write("How many files do you want to search in: ");
+                }
+                
                 tmp = Console.ReadLine();
                 //num = Convert.ToInt32(Console.ReadLine());
 
@@ -53,19 +61,35 @@ namespace KeyWord_Searcher
                 ClearCurrentConsoleLine();
             } while (keyC != "y" && keyC != "n");
 
+            do
+            {
+                Console.WriteLine("Should the lines including the keyword be printed to a file? [Y/N]");
+                keyP = Convert.ToString(Console.ReadKey().KeyChar).ToLower();
+                ClearCurrentConsoleLine();
+            } while (keyP != "y" && keyP != "n");
+
+
+            if (keyP == "y")
+            {
+                Console.Write("Destination of the saved file: ");
+                pathS = Console.ReadLine();
+
+            }
+
+
 
             ClearCurrentConsoleLine();
 
             switch (key)
             {
                 case "d":
- 
+
                     // For-loop based on how many files they want to check through
                     for (int f = 0; f < num; f++)
                     {
                         do
                         {
-                            Console.Write("Example: C:\\skoledata\\\nDefine a path for the file: ");
+                            Console.Write("\nExample: C:\\skoledata\\\nDefine a path for the directory: ");
                             //Console.Write(" ");
                             path = Console.ReadLine();
 
@@ -85,13 +109,19 @@ namespace KeyWord_Searcher
                                         {
                                             pathFile[j] = pathFile[j].ToLower();
                                         }
+                                        
 
                                         if (pathFile[j].Contains(kw))
                                         {
+                                            if (keyP == "y")
+                                            {
+                                                //Console.WriteLine($"Test: {pathS}");
+                                                fileS += pathFile[j] + Environment.NewLine;
+                                            }
+
                                             //Console.WriteLine("Case: N");
                                             match++;
                                         }
-
                                     }
                                 }
                             }
@@ -106,7 +136,11 @@ namespace KeyWord_Searcher
                     }
 
                     Console.WriteLine($"Keyword: {kw}\nfound in total: {match}");
-
+                    if (keyP == "y")
+                    {
+                        File.WriteAllText(pathS, fileS);
+                    }
+                    
                     break;
 
                 case "f":
@@ -123,13 +157,18 @@ namespace KeyWord_Searcher
 
                             for (int j = 0; j < pathFile.Length; j++)
                             {
-                                if (key == "n")
+                                if (keyC == "n")
                                 {
                                     pathFile[j] = pathFile[j].ToLower();
                                 }
 
                                 if (pathFile[j].Contains(kw))
                                 {
+                                    if (keyP == "y")
+                                    {
+                                        fileS += pathFile[j] + Environment.NewLine;
+                                    }
+                                    
                                     match++;
                                 }
 
@@ -146,6 +185,12 @@ namespace KeyWord_Searcher
                     }
 
                     Console.WriteLine($"Keyword: {kw}\nfound in total: {match}");
+
+                    if (keyP == "y")
+                    {
+                        File.WriteAllText(pathS, fileS);
+                    }
+
                     break;
             }
 
@@ -181,7 +226,6 @@ namespace KeyWord_Searcher
                 }
             } while (!key.Contains("sc"));
             
-
             Console.ReadKey();
         }
 

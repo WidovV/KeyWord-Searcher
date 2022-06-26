@@ -6,3 +6,7 @@ E:\Github\KeyWord Searcher\KeyWord Searcher\obj\Debug\KeyWord Searcher.csproj.Su
 E:\Github\KeyWord Searcher\KeyWord Searcher\obj\Debug\KeyWord Searcher.csproj.CoreCompileInputs.cache
 E:\Github\KeyWord Searcher\KeyWord Searcher\obj\Debug\KeyWord Searcher.exe
 E:\Github\KeyWord Searcher\KeyWord Searcher\obj\Debug\KeyWord Searcher.pdb
+E:\Github\KeyWord Searcher\KeyWord Searcher\bin\Debug\KeyWord Searcher.exe.manifest
+E:\Github\KeyWord Searcher\KeyWord Searcher\bin\Debug\KeyWord Searcher.application
+E:\Github\KeyWord Searcher\KeyWord Searcher\obj\Debug\KeyWord Searcher.exe.manifest
+E:\Github\KeyWord Searcher\KeyWord Searcher\obj\Debug\KeyWord Searcher.application
