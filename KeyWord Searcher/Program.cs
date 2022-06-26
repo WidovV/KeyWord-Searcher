@@ -31,8 +31,10 @@ namespace KeyWord_Searcher
             key = Convert.ToString(Console.ReadKey().KeyChar).ToLower();
             ClearCurrentConsoleLine();
 
+            // Do-while loop to secure their input is as we expect
             do
             {
+                // if statements to differ the word of choice
                 if (key == "d")
                 {
                     Console.Write("How many directories do you want to search in: ");
@@ -41,7 +43,7 @@ namespace KeyWord_Searcher
                 {
                     Console.Write("How many files do you want to search in: ");
                 }
-                
+                // Save to a temporary string to save it into a int
                 tmp = Console.ReadLine();
                 //num = Convert.ToInt32(Console.ReadLine());
 
@@ -56,6 +58,7 @@ namespace KeyWord_Searcher
             // Do-while loop to secure we get one of the answers we expect
             do
             {
+                // Asking the relevant question, getting their input to our variable and clear the current line to not see a unexpected "y" or "n" on the screen
                 Console.WriteLine("Should upper- or lowercase matter? [Y/N]");
                 keyC = Convert.ToString(Console.ReadKey().KeyChar).ToLower();
                 ClearCurrentConsoleLine();
@@ -68,18 +71,19 @@ namespace KeyWord_Searcher
                 ClearCurrentConsoleLine();
             } while (keyP != "y" && keyP != "n");
 
-
+            // If their answer was "y" ask which destination it should be saved in
             if (keyP == "y")
             {
                 Console.Write("Destination of the saved file: ");
+                // Save their choice to our variable
                 pathS = Console.ReadLine();
 
             }
-
-
-
+            
+            // Clear 
             ClearCurrentConsoleLine();
 
+            // Switch cases with their pressed key from a question further up
             switch (key)
             {
                 case "d":
@@ -87,57 +91,73 @@ namespace KeyWord_Searcher
                     // For-loop based on how many files they want to check through
                     for (int f = 0; f < num; f++)
                     {
+                        // Ask the question again if their input is unreachable/not created
                         do
                         {
+                            // Show an example of usage and ask for the directory
                             Console.Write("\nExample: C:\\skoledata\\\nDefine a path for the directory: ");
-                            //Console.Write(" ");
-                            path = Console.ReadLine();
 
+                            path = Console.ReadLine();
                             dir = Directory.GetFiles(path);
 
+                            // If statement to secure the directory is there
                             if (Directory.Exists(path))
                             {
+                                // For-loop based on how many files there is in the directory
                                 for (int i = 0; i < dir.Length; i++)
                                 {
-
+                                    // Save the filename to path
                                     path = dir[i];
+                                    // Read the file from the path and save it in pathFile
                                     pathFile = File.ReadAllLines(path);
 
+                                    // For loop based on the length of the file
                                     for (int j = 0; j < pathFile.Length; j++)
                                     {
+                                        // If case to check their case-choice
                                         if (keyC == "n")
                                         {
+                                            // Read everything as lowercase
                                             pathFile[j] = pathFile[j].ToLower();
                                         }
                                         
-
+                                        // Check if the line contains the keyword
                                         if (pathFile[j].Contains(kw))
                                         {
+                                            // If their choice of saving is true
                                             if (keyP == "y")
                                             {
-                                                //Console.WriteLine($"Test: {pathS}");
+                                                //Save the line to a file including a new line afterwards
                                                 fileS += pathFile[j] + Environment.NewLine;
                                             }
 
                                             //Console.WriteLine("Case: N");
+                                            // Counter for number of matches
                                             match++;
                                         }
                                     }
                                 }
                             }
+                            // If the directory doesn't exist
                             else
                             {
+                                // Set the color to red and let them know we didnt find the path
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("\nPath not found!\nTry again!\n");
+                                // To secure they get the chosen amount of question even tho one of the directories wasnt reachable, plus with one
                                 num++;
+                                // Reset the color white
                                 Console.ForegroundColor = ConsoleColor.White;
                             }
-                        } while (!File.Exists(path));
+                        } while (!Directory.Exists(path));
                     }
-
+                    // Inform of the keyword we searched for and how many were found in total
                     Console.WriteLine($"Keyword: {kw}\nfound in total: {match}");
+                    
+                    // If they wanted to save it to a file
                     if (keyP == "y")
                     {
+                        // Write the text to a file
                         File.WriteAllText(pathS, fileS);
                     }
                     
@@ -171,7 +191,6 @@ namespace KeyWord_Searcher
                                     
                                     match++;
                                 }
-
                             }
                         }
                         else
@@ -194,13 +213,14 @@ namespace KeyWord_Searcher
                     break;
             }
 
-
+            // Do-while loop to secure their keypress
             do
             {
+                // Inform which options they have from here on
                 Console.WriteLine("\n[S] Search Again\t[C] Close");
 
                 key = Convert.ToString(Console.ReadKey().KeyChar).ToLower();
-
+                // If they want to search again, clear the console and go to start
                 if (key == "s")
                 {
                     Console.Clear();
@@ -210,12 +230,14 @@ namespace KeyWord_Searcher
                 {
                     do
                     {
+                        // Make sure they are sure they want to close
                         ClearCurrentConsoleLine();
                         Console.WriteLine("Are you sure you want to close? [Y/N]");
                         key = Convert.ToString(Console.ReadKey().KeyChar).ToLower();
 
                         if (key == "y")
                         {
+                            // If they are sure, close the program
                             Environment.Exit(0);
                         }
                         else if (key == "n")
@@ -229,6 +251,7 @@ namespace KeyWord_Searcher
             Console.ReadKey();
         }
 
+        // Method found on stackoverflow, thanks
         public static void ClearCurrentConsoleLine()
         {
             int currentLineCursor = Console.CursorTop;
