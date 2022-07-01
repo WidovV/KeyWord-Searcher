@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KeyWord Searcher.exe" size="8664">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KeyWord Searcher.exe" size="8152">
       <assemblyIdentity name="KeyWord Searcher" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>n4yyzx6leUR/kBl84Ros7vj0Fe1jqdoawXc4NUoV8M0=</dsig:DigestValue>
+        <dsig:DigestValue>rcSq5lhsVSUblaUHZPFim97q2Y6pny/ioaauIUgihFI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

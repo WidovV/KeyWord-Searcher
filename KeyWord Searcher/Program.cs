@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace KeyWord_Searcher
 {
@@ -92,64 +87,65 @@ namespace KeyWord_Searcher
                     for (int f = 0; f < num; f++)
                     {
                         // Ask the question again if their input is unreachable/not created
-                        do
+                        
+                        
+                        // Show an example of usage and ask for the directory
+                        Console.Write("\nExample: C:\\skoledata\\\nDefine a path for the directory: ");
+
+                        path = Console.ReadLine();
+
+                        
+
+                        // If statement to secure the directory is there
+                        if (Directory.Exists(path))
                         {
-                            // Show an example of usage and ask for the directory
-                            Console.Write("\nExample: C:\\skoledata\\\nDefine a path for the directory: ");
-
-                            path = Console.ReadLine();
                             dir = Directory.GetFiles(path);
-
-                            // If statement to secure the directory is there
-                            if (Directory.Exists(path))
+                            // For-loop based on how many files there is in the directory
+                            for (int i = 0; i < dir.Length; i++)
                             {
-                                // For-loop based on how many files there is in the directory
-                                for (int i = 0; i < dir.Length; i++)
+                                // Save the filename to path
+                                path = dir[i];
+                                // Read the file from the path and save it in pathFile
+                                pathFile = File.ReadAllLines(path);
+
+                                // For loop based on the length of the file
+                                for (int j = 0; j < pathFile.Length; j++)
                                 {
-                                    // Save the filename to path
-                                    path = dir[i];
-                                    // Read the file from the path and save it in pathFile
-                                    pathFile = File.ReadAllLines(path);
-
-                                    // For loop based on the length of the file
-                                    for (int j = 0; j < pathFile.Length; j++)
+                                    // If case to check their case-choice
+                                    if (keyC == "n")
                                     {
-                                        // If case to check their case-choice
-                                        if (keyC == "n")
+                                        // Read everything as lowercase
+                                        pathFile[j] = pathFile[j].ToLower();
+                                    }
+                                    
+                                    // Check if the line contains the keyword
+                                    if (pathFile[j].Contains(kw))
+                                    {
+                                        // If their choice of saving is true
+                                        if (keyP == "y")
                                         {
-                                            // Read everything as lowercase
-                                            pathFile[j] = pathFile[j].ToLower();
+                                            //Save the line to a file including a new line afterwards
+                                            fileS += pathFile[j] + Environment.NewLine;
                                         }
-                                        
-                                        // Check if the line contains the keyword
-                                        if (pathFile[j].Contains(kw))
-                                        {
-                                            // If their choice of saving is true
-                                            if (keyP == "y")
-                                            {
-                                                //Save the line to a file including a new line afterwards
-                                                fileS += pathFile[j] + Environment.NewLine;
-                                            }
 
-                                            //Console.WriteLine("Case: N");
-                                            // Counter for number of matches
-                                            match++;
-                                        }
+                                        //Console.WriteLine("Case: N");
+                                        // Counter for number of matches
+                                        match++;
                                     }
                                 }
                             }
-                            // If the directory doesn't exist
-                            else
-                            {
-                                // Set the color to red and let them know we didnt find the path
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("\nPath not found!\nTry again!\n");
-                                // To secure they get the chosen amount of question even tho one of the directories wasnt reachable, plus with one
-                                num++;
-                                // Reset the color white
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-                        } while (!Directory.Exists(path));
+                        }
+                        // If the directory doesn't exist
+                        else
+                        {
+                            // Set the color to red and let them know we didnt find the path
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("\nPath not found!\nTry again!\n");
+                            // To secure they get the chosen amount of question even tho one of the directories wasnt reachable, plus with one
+                            num++;
+                            // Reset the color white
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                     }
                     // Inform of the keyword we searched for and how many were found in total
                     Console.WriteLine($"Keyword: {kw}\nfound in total: {match}");
